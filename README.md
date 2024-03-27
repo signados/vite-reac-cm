@@ -1,4 +1,6 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Docker
+
+## Vite template
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -28,3 +30,65 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Vite test React
+
+npm install -D vitest
+
+Añadir en package.json  "test": "vitest" y ejecutar npm run test
+
+Instalar: npm i -D jsdom @testing-library/react
+
+Tocar el vite.config para añadir test. (reference es una directiva de typescript)
+
+```js
+/// < reference types='vitest'>
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: "jsdom",
+
+  }
+})
+```
+
+## Docker
+
+docker init
+
+- ? What application platform does your project use? Node
+- ? What version of Node do you want to use? 21.6.2
+- ? Which package manager do you want to use? npm
+- ? Do you want to run "npm run build" before starting your server? Yes
+- ? What directory is your build output to? (comma-separate if multiple) dist
+- ? What command do you want to use to start the app? npm run preview
+- ? What port does your server listen on? 4173
+
+docker compose up –build
+
+En el dockerfile están los comandos que se ejecutan en el paquete. Hay que modificarlo
+
+Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set and because the create-vite template includes vite in devDependencies, Vite won't be installed. https://docs.npmjs.com/cli/v9/commands/npm-install#:~:text=With%20the%20%2D%2Dproduction,to%20a%20project. Modificando el dockerfile para que lo instale se lo traga. (Use production node environment by default)
+
+- ENV NODE_ENV development
+- COPY package*.json ./
+- RUN npm install
+
+# Ruteo
+
+-  npm i react-router-dom
+- import { Link, Route, Routes } from 'react-router-dom'
+- Ejemplo:
+```html
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/search-page" element={<SearchPage />} />
+</Routes>
+```
+- Todo envuelto en BrowserRouter. import { BrowserRouter } from 'react-router-dom'
+
+
