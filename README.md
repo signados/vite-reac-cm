@@ -78,7 +78,7 @@ Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set a
 - COPY package*.json ./
 - RUN npm install
 
-# Ruteo
+## Ruteo
 
 -  npm i react-router-dom
 - import { Link, Route, Routes } from 'react-router-dom'
@@ -90,5 +90,11 @@ Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set a
 </Routes>
 ```
 - Todo envuelto en BrowserRouter. import { BrowserRouter } from 'react-router-dom'
+
+## Variables de entorno
+
+- Tiene que empezar por VITE_
+- Y se accede: const envVar = import.meta.env.VITE_ENV_VAR;
+- Recomendable ignorar el .env y crear un -env.example como guía
 
 
