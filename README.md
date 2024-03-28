@@ -31,6 +31,8 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
+- npm run build y te genera el index el js y el html
+
 ## Vite test React
 
 npm install -D vitest
@@ -107,4 +109,5 @@ Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set a
 
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
+- Ejemplo de componentes: https://tailwindcomponents.com/component/search-input
 

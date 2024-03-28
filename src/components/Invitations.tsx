@@ -70,15 +70,16 @@ function Invitations() {
   return (
     <>
       <h1>Invitaciones</h1>
-      <input
-        type="search"
-        name="search-form"
-        id="search-form"
-        className="form-control ds-input search-input"
-        placeholder="Buscar..."
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-      />
+
+      <input 
+          type="search" 
+          className="shadow rounded p-3 focus:outline-none" 
+          name="search-form" 
+          id="search-form"        
+          placeholder="Buscar..."
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+      /> 
       <br />
       <select
         name="select"
