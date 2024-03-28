@@ -1,5 +1,5 @@
-export default function democomponent() {
+export default function Democomponent() {
   return (
-    <div className="text-3xl font-bold underline">democomponent</div>
+    <div className="text-3xl font-bold underline">Democomponent</div>
   )
 }

@@ -56,6 +56,8 @@ export default defineConfig({
 })
 ```
 
+- Más info: https://vitest.dev/
+
 ## Docker
 
 docker init
@@ -78,6 +80,8 @@ Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set a
 - COPY package*.json ./
 - RUN npm install
 
+- Más info: https://docs.docker.com/reference/cli/docker/init/
+
 ## Ruteo
 
 -  npm i react-router-dom
@@ -90,11 +94,17 @@ Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set a
 </Routes>
 ```
 - Todo envuelto en BrowserRouter. import { BrowserRouter } from 'react-router-dom'
+- Más info: https://reactrouter.com/en/main
 
 ## Variables de entorno
 
 - Tiene que empezar por VITE_
 - Y se accede: const envVar = import.meta.env.VITE_ENV_VAR;
 - Recomendable ignorar el .env y crear un -env.example como guía
+- Más info: https://es.vitejs.dev/guide/env-and-mode
 
+## Tailwind
+
+- npm install -D tailwindcss postcss autoprefixer
+- npx tailwindcss init -p
 

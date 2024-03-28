@@ -1,40 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import logoCM from '/logoCM.svg'
 import './App.css'
 import { Link, Route, Routes } from 'react-router-dom';
-import Democomponent from './components/democomponent';
+import Democomponent from './components/Democomponent';
+import Invitations from './components/Invitations';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  //const location = useLocation(); import { Link, Route, Routes, useLocation } from 'react-router-dom';
   const envVar = import.meta.env.VITE_ENV_VAR;
 
   return (
     <>
+      <a href="https://cristinamaser.com" target="_blank">
+        <img src={logoCM} className="logo" alt="Logo CM" />
+      </a>
+      <h1>Vite + React + Test + Docker + Tailwind</h1>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <h2>Variable de entorno</h2>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR! | {envVar}
+          {envVar}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
       <Link to="/democomponent">Componente demo</Link>
+      <br/>
+      <Link to="/invitations">Invitaciones</Link>
       <Routes>
           <Route path="/democomponent" element={<Democomponent/>} />
+          <Route path="/invitations" element={<Invitations/>} />
       </Routes>
     </>
   )
