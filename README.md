@@ -109,5 +109,9 @@ Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set a
 
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
+- y lo añades en index.css:
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 - Ejemplo de componentes: https://tailwindcomponents.com/component/search-input
 
