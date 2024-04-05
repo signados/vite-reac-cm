@@ -85,8 +85,7 @@ En el dockerfile están los comandos que se ejecutan en el paquete. Hay que modi
 2º Problema con Vite:
 - Hacer que Vite escuche en todas las interfaces de red: Por defecto, Vite está configurado para escuchar solo en localhost dentro del contenedor. Para permitir que otros dispositivos en tu red accedan a tu aplicación, necesitas configurar Vite para que escuche en todas las interfaces de red. Esto se puede hacer agregando el flag --host al comando vite preview en tu package.json. Cambiaría a algo como esto: "preview": "vite preview --host"
 
-
-- Más info: https://docs.docker.com/reference/cli/docker/init/
+Más info: https://docs.docker.com/reference/cli/docker/init/
 
 ## Ruteo
 
