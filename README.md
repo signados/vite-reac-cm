@@ -76,11 +76,15 @@ docker compose up –build
 
 En el dockerfile están los comandos que se ejecutan en el paquete. Hay que modificarlo
 
-Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set and because the create-vite template includes vite in devDependencies, Vite won't be installed. https://docs.npmjs.com/cli/v9/commands/npm-install#:~:text=With%20the%20%2D%2Dproduction,to%20a%20project. Modificando el dockerfile para que lo instale se lo traga. (Use production node environment by default)
-
+1º Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set and because the create-vite template includes vite in devDependencies, Vite won't be installed. https://docs.npmjs.com/cli/v9/commands/npm-install#:~:text=With%20the%20%2D%2Dproduction,to%20a%20project. Modificando el dockerfile para que lo instale se lo traga. (Use production node environment by default)
+(Ver el dockerfile, he añadido las siguientes lineas)
 - ENV NODE_ENV development
 - COPY package*.json ./
 - RUN npm install
+
+2º Problema con Vite:
+- Hacer que Vite escuche en todas las interfaces de red: Por defecto, Vite está configurado para escuchar solo en localhost dentro del contenedor. Para permitir que otros dispositivos en tu red accedan a tu aplicación, necesitas configurar Vite para que escuche en todas las interfaces de red. Esto se puede hacer agregando el flag --host al comando vite preview en tu package.json. Cambiaría a algo como esto: "preview": "vite preview --host"
+
 
 - Más info: https://docs.docker.com/reference/cli/docker/init/
 
