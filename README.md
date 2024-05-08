@@ -1,4 +1,4 @@
-# React + TypeScript + Vite + Docker
+# React + TypeScript + Vite + Docker + Azure
 
 ## Vite template
 
