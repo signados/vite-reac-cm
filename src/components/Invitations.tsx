@@ -14,7 +14,6 @@ function Invitations() {
   const [filterParam, setFilterParam] = useState<string>("all");
 
   const response = useFetch<InvitationData[]>(import.meta.env.VITE_API_INVITATION);
-  //console.log(response);
 
   function search(items: InvitationData[]): InvitationData[] {
     return items.filter((item) => {
@@ -93,7 +92,7 @@ function Invitations() {
         </option>
       </select>
 
-      <div className="container-flex d-flex flex-wrap align-items-center">
+      <div className="flex flex-wrap">
         {response && response.data && // Verificar que response y response.data no sean null ni undefined
           search(response.data.flat()).map((d, i) => (
             <Invitation src={d.invitationimg[0].src} name={d.nombre} key={i} />

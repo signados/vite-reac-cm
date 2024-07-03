@@ -15,6 +15,16 @@ FROM node:${NODE_VERSION}-alpine as base
 # Set working directory for all build stages.
 WORKDIR /usr/src/app
 
+# Definir argumentos que coincidan con tus parámetros
+ARG VITE_ENV_VAR
+ARG VITE_API_INVITATION
+ARG VITE_URL_IMG
+
+# Asignar los argumentos a variables de entorno
+ENV VITE_ENV_VAR=${VITE_ENV_VAR}
+ENV VITE_API_INVITATION=${VITE_API_INVITATION}
+ENV VITE_URL_IMG=${VITE_URL_IMG}
+
 
 ################################################################################
 # Create a stage for installing production dependecies.
@@ -38,11 +48,12 @@ FROM deps as build
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
-    npm ci
+    npm ci --fetch-retries=10
 
 # Copy the rest of the source files into the image.
 COPY . .
 # Run the build script.
+RUN env
 RUN npm run build
 
 ################################################################################

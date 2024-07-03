@@ -3,20 +3,16 @@ interface InvitationProps {
   src: string;
 }
 
-function Invitation(props: InvitationProps) {
+function Invitation(props: Readonly<InvitationProps>) {
 
   return (
-    <>
-      <div>
-        <div>
+    <div className="w-full sm:basis-1/2 md:basis-1/3 p-6">
           <h5>{props.name}</h5>
           <img
             src={import.meta.env.VITE_URL_IMG + props.src}
             alt={props.name}
           />
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
 
