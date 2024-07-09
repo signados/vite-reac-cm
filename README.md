@@ -19,12 +19,12 @@ If you are developing a production application, we recommend updating the config
 export default {
   // other rules...
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
@@ -37,7 +37,7 @@ export default {
 
 npm install -D vitest
 
-Añadir en package.json  "test": "vitest" y ejecutar npm run test
+Añadir en package.json "test": "vitest" y ejecutar npm run test
 
 Instalar: npm i -D jsdom @testing-library/react
 
@@ -45,17 +45,16 @@ Tocar el vite.config para añadir test. (reference es una directiva de typescrip
 
 ```js
 /// < reference types='vitest'>
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
-
-  }
-})
+  },
+});
 ```
 
 - Más info: https://vitest.dev/
@@ -76,34 +75,59 @@ docker compose up --build
 
 En el dockerfile están los comandos que se ejecutan en el paquete. Hay que modificarlo
 
-1º Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set and because the create-vite template includes vite in devDependencies, Vite won't be installed. https://docs.npmjs.com/cli/v9/commands/npm-install#:~:text=With%20the%20%2D%2Dproduction,to%20a%20project. Modificando el dockerfile para que lo instale se lo traga. (Use production node environment by default)
-(Ver el dockerfile, he añadido las siguientes lineas)
-- ENV NODE_ENV development
-- COPY package*.json ./
-- RUN npm install
+1º Problema con Vite: npm i skips devDependencies when NODE_ENV=production is set and because the create-vite template includes vite in devDependencies, Vite won't be installed. https://docs.npmjs.com/cli/v9/commands/npm-install#:~:text=With%20the%20%2D%2Dproduction,to%20a%20project. Poner vite en las dependencias de producción
 
-2º Problema con Vite:
-- Hacer que Vite escuche en todas las interfaces de red: Por defecto, Vite está configurado para escuchar solo en localhost dentro del contenedor. Para permitir que otros dispositivos en tu red accedan a tu aplicación, necesitas configurar Vite para que escuche en todas las interfaces de red. Esto se puede hacer agregando el flag --host al comando vite preview en tu package.json. Cambiaría a algo como esto: "preview": "vite preview --host"
+2º Problema con Vite: Hacer que Vite escuche en todas las interfaces de red: Por defecto, Vite está configurado para escuchar solo en localhost dentro del contenedor. Para permitir que otros dispositivos en tu red accedan a tu aplicación, necesitas configurar Vite para que escuche en todas las interfaces de red. Esto se puede hacer agregando el flag --host al comando vite preview en tu package.json. Cambiaría a algo como esto: "preview": "vite preview --host"
 
 Más info: https://docs.docker.com/reference/cli/docker/init/
 
+Dos formas de levantarlo.
+
+1º docker compose up --build Coge las variables del .env. Ver compose.yaml (Utilizado para levantar múltiples servicios)
+2º Crear la imagen directamente y luego al ejecutar el contenedor meter las variables (A través de la terminal o del docker):
+
+```js
+docker build \
+  --build-arg VITE_ENV_VAR="Variable" \
+  --build-arg VITE_API_INVITATION="https://cristinamaser.com/api/invitations" \
+  --build-arg VITE_URL_IMG="https://cristinamaser.com" \
+  -t signados/frontcm:0.4 \
+--load .
+```
+
+docker run -d -p 4173:4173 --name frontcm signados/frontcm:0.4
+
+Para subir la imagen a Docker hub
+
+```js
+          docker buildx build \
+                    --build-arg VITE_ENV_VAR="Variable" \
+                    --build-arg VITE_API_INVITATION="https://cristinamaser.com/api/invitations" \
+                    --build-arg VITE_URL_IMG="https://cristinamaser.com" \
+                    --platform linux/amd64,linux/arm64 \
+                    -t signados/frontCM-server:arm64-18 \
+                              --push .
+```
+
 ## Ruteo
 
--  npm i react-router-dom
+- npm i react-router-dom
 - import { Link, Route, Routes } from 'react-router-dom'
 - Ejemplo:
+
 ```html
 <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/search-page" element={<SearchPage />} />
+  <Route path="/" element="{<Home" />} />
+  <Route path="/search-page" element="{<SearchPage" />} />
 </Routes>
 ```
+
 - Todo envuelto en BrowserRouter. import { BrowserRouter } from 'react-router-dom'
 - Más info: https://reactrouter.com/en/main
 
 ## Variables de entorno
 
-- Tiene que empezar por VITE_
+- Tiene que empezar por VITE\_
 - Y se accede: const envVar = import.meta.env.VITE_ENV_VAR;
 - Recomendable ignorar el .env y crear un -env.example como guía
 - Más info: https://es.vitejs.dev/guide/env-and-mode
@@ -113,8 +137,7 @@ Más info: https://docs.docker.com/reference/cli/docker/init/
 - npm install -D tailwindcss postcss autoprefixer
 - npx tailwindcss init -p
 - y lo añades en index.css:
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 - Ejemplo de componentes: https://tailwindcomponents.com/component/search-input
-

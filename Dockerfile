@@ -62,9 +62,7 @@ RUN npm run build
 FROM base as final
 
 # Use production node environment by default.
-ENV NODE_ENV development
-COPY package*.json ./
-RUN npm install
+ENV NODE_ENV production
 
 # Run the application as a non-root user.
 USER node
