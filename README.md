@@ -72,7 +72,7 @@ docker init
 - ? What command do you want to use to start the app? npm run preview
 - ? What port does your server listen on? 4173
 
-docker compose up –build
+docker compose up --build
 
 En el dockerfile están los comandos que se ejecutan en el paquete. Hay que modificarlo
 

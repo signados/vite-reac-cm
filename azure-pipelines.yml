@@ -3,28 +3,30 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+  - main
+#Esto especifica que el pipeline se ejecutará automáticamente cada vez que haya un cambio en la rama main del repositorio.
 
 resources:
-- repo: self
-
+  - repo: self
 
 variables:
-  tag: '$(Build.BuildId)'
+  tag: "$(Build.BuildId)"
+#Aquí se define una variable llamada tag que toma el valor de Build.BuildId. Build.BuildId es una variable predefinida en Azure Pipelines que representa el ID único de la compilación actual. Esta variable se usará para etiquetar la imagen de Docker.
 
 stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+  #Etapa del pipeline
+  - stage: Build
+    displayName: Build image
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Docker@2 #task: Docker@2: Este paso utiliza la tarea Docker@2, que es una tarea predefinida en Azure Pipelines para trabajar con Docker.
+            displayName: Build an image
+            inputs:
+              command: build
+              dockerfile: "$(Build.SourcesDirectory)/Dockerfile"
+              tags: |
+                $(tag)
